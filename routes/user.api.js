@@ -1,25 +1,20 @@
 const express = require("express");
 const taskController = require("../controller/task.controller");
 const router = express.Router();
+const userController = require("../controller/user.controller");
 
 //1. 회원가입 endpoint
-router.post("/", (req, res) => {
-  console.log("post 여기까지 타고는 들어오나");
-  res.send("post 되나");
-});
+router.post("/", userController.createUser);
 
-router.get("/", taskController.getTask);
+//2. 로그인 endpoint
+router.post("/login", userController.loginWithEmail);
 
-module.exports = router;
-
-//
-
-router.post("/", taskController.createTask);
+// router.post("/", taskController.createTask);
 
 // router.get("/", taskController.getTask);
 
-router.put("/:id", taskController.updateTask);
+// router.put("/:id", taskController.updateTask);
 
-router.delete("/:id", taskController.deleteTask);
+// router.delete("/:id", taskController.deleteTask);
 
 module.exports = router;
