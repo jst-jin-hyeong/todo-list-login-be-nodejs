@@ -42,7 +42,7 @@ userController.loginWithEmail = async (req, res) => {
     const { name, email, password } = req.body;
 
     // 3. 이메일을 가지고 유저 정보 가져오기
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }, "-createdAt -updatedAt -__v");
 
     // 4. 유저 있는지 없는지 확인. 만약 있다면, 이 유저의 DB에 있는 Password와 프론트엔드가 보낸 패스워드가 같은지 비교
     if (user) {

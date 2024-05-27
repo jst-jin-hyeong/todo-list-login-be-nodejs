@@ -22,8 +22,17 @@ const userSchema = Schema(
   { timestamps: true }
 );
 
+//오브젝트가 JSON으로 바뀔 때 자동으로 호출되는 함수
+userSchema.methods.toJSON = function () {
+  const obj = this._doc;
+  delete obj.password;
+  return obj;
+};
+
 userSchema.methods.generateToken = function () {
-  const token = jwt.sign({ _id: this._id }, JWT_SECRET_KEY);
+  const token = jwt.sign({ _id: this._id }, JWT_SECRET_KEY, {
+    expiresIn: "1d",
+  });
   return token;
 };
 const User = mongoose.model("User", userSchema);
